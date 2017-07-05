@@ -15,29 +15,75 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var screenName: UILabel!
-    @IBOutlet weak var retweetCount: UIButton!
-    @IBOutlet weak var likeCount: UIButton!
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var retweetCount: UILabel!
+    @IBOutlet weak var likeCount: UILabel!
+    @IBOutlet weak var avatarImage: UIImageView!
     
     
     var tweet: Tweet! {
         didSet {
+            avatarImage.layer.cornerRadius = 0.5*avatarImage.frame.width
+            avatarImage.layer.masksToBounds = true
             tweetTextLabel.text = tweet.text
             username.text = tweet.user.name
             screenName.text = tweet.user.screenName
-            retweetCount.titleLabel?.text = String(tweet.retweetCount)
-            likeCount.titleLabel?.text = String(tweet.favoriteCount!)
+            
+            if tweet.retweetCount == 0 {
+                retweetCount.text = ""
+            } else if tweet.retweetCount != 0 {
+                retweetCount.text = String(tweet.retweetCount)
+            }
+            
+            if tweet.favoriteCount == 0 {
+                likeCount.text = ""
+            } else if tweet.favoriteCount != 0 {
+                likeCount.text = String(tweet.favoriteCount!)
+            }
+            // Calling the favorite(completion:) method
+            
+       }
+    }
+    
+    @IBAction func didLike(_ sender: Any) {
+        if likeButton.isSelected == false {
+            likeButton.isSelected = true
+            tweet.favorited = true
+            tweet.favoriteCount? += 1
+            APIManager.shared.favorite(tweet) { (tweet: Tweet?, error: Error?) in
+                print("HERE")
+                if let error = error {
+                    print("Error favoriting tweet: \(error.localizedDescription)")
+                } else if let tweet = tweet {
+                    print("Successfully favorited the following Tweet: \n\(tweet.text)")
+                }
+            }
+            
+        } else if likeButton.isSelected == true {
+            likeButton.isSelected = false
         }
     }
     
     
-    @IBAction func didLike(_ sender: Any) {
-    
-    }
-    
-    
     @IBAction func didRetweet(_ sender: Any) {
-    
+        if retweetButton.isSelected == false {
+            retweetButton.isSelected = true
+            tweet.retweeted = true
+            tweet.retweetCount += 1
+            APIManager.shared.retweet(tweet) { (tweet: Tweet?, error: Error?) in
+                print("HERE")
+                if let error = error {
+                    print("Error retweeting tweet: \(error.localizedDescription)")
+                } else if let tweet = tweet {
+                    print("Successfully retweeted the following Tweet: \n\(tweet.text)")
+                }
+            }
+        } else if retweetButton.isSelected == true {
+            retweetButton.isSelected = false
+        }
     }
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -13,7 +13,7 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
     var tweets: [Tweet] = []
     
     @IBOutlet weak var tableView: UITableView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let refreshControl = UIRefreshControl()
@@ -33,7 +33,6 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         }
         tableView.insertSubview(refreshControl, at: 0)
         tableView.reloadData()
-        
     }
     
     func didPullToRefresh(_ refreshControl: UIRefreshControl) {
