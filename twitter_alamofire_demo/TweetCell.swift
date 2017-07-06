@@ -20,7 +20,9 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var retweetCount: UILabel!
     @IBOutlet weak var likeCount: UILabel!
     @IBOutlet weak var avatarImage: UIImageView!
+    @IBOutlet weak var timestampLabel: UILabel!
     
+    var indexPath: Int!
     
     var tweet: Tweet! {
         didSet {
@@ -29,6 +31,11 @@ class TweetCell: UITableViewCell {
             tweetTextLabel.text = tweet.text
             username.text = tweet.user.name
             screenName.text = tweet.user.screenName
+            let imageURL = tweet.user.avatar as! URL
+            self.avatarImage.af_setImage(withURL: imageURL)
+            
+            self.timestampLabel.text = tweet.createdAtString
+            
             
             if tweet.retweetCount == 0 {
                 retweetCount.text = ""

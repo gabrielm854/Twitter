@@ -156,8 +156,8 @@
 				ED1D234F1EF71C5100C51ACC /* Views */,
 				ED1D234A1EF6E3B800C51ACC /* View Controllers */,
 				EDC4B7361E98627100D836AC /* twitter_alamofire_demo.entitlements */,
-				ED1AFD301E942B2500FD4B90 /* AppDelegate.swift */,
 				ED1AFD371E942B2500FD4B90 /* Assets.xcassets */,
+				ED1AFD301E942B2500FD4B90 /* AppDelegate.swift */,
 				ED1AFD391E942B2500FD4B90 /* LaunchScreen.storyboard */,
 				ED1AFD3C1E942B2500FD4B90 /* Info.plist */,
 			);

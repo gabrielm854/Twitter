@@ -36,17 +36,23 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func didPullToRefresh(_ refreshControl: UIRefreshControl) {
+        loadNewTweets()
+        tableView.reloadData()
+        refreshControl.endRefreshing()
+        
+    }
+
+    func loadNewTweets() {
         APIManager.shared.getHomeTimeLine { (tweets, error) in
             if let tweets = tweets {
                 self.tweets = tweets
                 self.tableView.reloadData()
-                refreshControl.endRefreshing()
             } else if let error = error {
                 print("Error getting home timeline: " + error.localizedDescription)
             }
         }
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tweets.count
     }

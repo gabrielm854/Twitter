@@ -22,7 +22,6 @@ class ComposeViewController: UIViewController, UITextViewDelegate { //, ComposeV
     @IBOutlet weak var composeText: UITextView!
     @IBAction func didCancel(_ sender: Any) {
         self.dismiss(animated: true) {
-            
         }
     }
     
@@ -35,14 +34,26 @@ class ComposeViewController: UIViewController, UITextViewDelegate { //, ComposeV
     }
     
     @IBAction func didTapPost(_ sender: Any) {
-        //        APIManager.shared.composeTweet(with: composeText.text) { (tweet, error) in
-        //            if let error = error {
-        //                print("Error composing Tweet: \(error.localizedDescription)")
-        //            } else if let tweet = tweet {
-        //                self.delegate?.did(post: tweet)
-        //                print("Compose Tweet Success!")
-        //            }
-        //        }
+        let text = composeText.text ?? ""
+        if text.characters.count > 140 {
+            let alertController = UIAlertController(title: "Thesis Alert", message: "You exceeded the character count... 'bájale mil'. ", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        } else if text.characters.count == 0 {
+            let alertController = UIAlertController(title: "Empty message", message: "You need to write something to post.", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        } else{
+            APIManager.shared.composeTweet(with: text) { (tweet: Tweet?, error: Error?) in
+                print("HERE")
+                if let error = error {
+                    print("Error posting tweet: \(error.localizedDescription)")
+                } else if let tweet = tweet {
+                    print("Successfully tweeted the following Tweet: \n\(tweet.text)")
+                }
+            }
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     

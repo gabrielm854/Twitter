@@ -38,7 +38,7 @@ class APIManager: SessionManager {
                     failure(error)
                 } else if let user = user {
                     print("Welcome \(user.name)")
-                    
+                    User.current = user
                     // MARK: TODO: set User.current, so that it's persisted
                     
                     success()
@@ -51,7 +51,7 @@ class APIManager: SessionManager {
     
     func logout() {
         clearCredentials()
-        
+        User.current = nil
         // TODO: Clear current user by setting it to nil
         
         NotificationCenter.default.post(name: NSNotification.Name("didLogout"), object: nil)
@@ -132,6 +132,18 @@ class APIManager: SessionManager {
     }
     
     // MARK: TODO: Un-Favorite a Tweet
+    func unfavorite(_ tweet: Tweet, completion: @escaping (Tweet?, Error?) -> ()) {
+        let urlString = "https://api.twitter.com/1.1/favorites/destroy.json"
+        let parameters = ["id": tweet.id]
+        request(urlString, method: .post, parameters: parameters, encoding: URLEncoding.queryString).validate().responseJSON {(response) in
+            if response.result.isSuccess,
+                let tweetDictionary = response.result.value as? [String: Any] {
+                completion(tweet, nil)
+            } else {
+                completion(nil, response.result.error)
+            }
+        }
+    }
     
     // MARK: TODO: Retweet
     func retweet(_ tweet: Tweet, completion: @escaping (Tweet?, Error?) -> ()) {
@@ -151,6 +163,19 @@ class APIManager: SessionManager {
         
     }
     // MARK: TODO: Un-Retweet
+    func unretweet(_ tweet: Tweet, completion: @escaping (Tweet?, Error?) -> ()) {
+        let baseURL = "https://api.twitter.com/1.1/statuses/unretweet/"
+        let userId = String(tweet.id)
+        let urlString = baseURL + userId + ".json"
+        let parameters = ["id": tweet.id]
+        request(urlString, method: .post, parameters: parameters, encoding: URLEncoding.queryString).validate().responseJSON { (response) in
+            if response.result.isSuccess,
+                let tweetDictionary = response.result.value as? [String: Any] {
+                let tweet = Tweet(dictionary: tweetDictionary)
+                completion(nil, response.result.error)
+            }
+        }
+    }
     
     // MARK: TODO: Compose Tweet
     func composeTweet(with text: String, completion: @escaping (Tweet?, Error?) -> ()) {

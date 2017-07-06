@@ -15,12 +15,25 @@ class User {
     var name: String
     var screenName: String
     var dictionary: [String: Any]?
-    private static var _current: User?
+    var tagline: String?
+    var avatar: URL?
+    var backdrop: URL?
+    
+   static var _current: User?
     
     init(dictionary: [String: Any]) {
         self.dictionary = dictionary
         name = dictionary["name"] as! String
         screenName = dictionary["screen_name"] as! String
+        tagline = dictionary["description"] as! String
+        let urlString = dictionary["profile_image_url_https"] as? String
+        if let urlString = urlString {
+            avatar = URL(string: urlString)
+        }
+        let backdropUrlString = dictionary["profile_background_image_url_https"] as? String
+        if let backdropUrlString = backdropUrlString {
+            backdrop = URL(string: backdropUrlString)
+        }
     }
     
     static var current: User? {
