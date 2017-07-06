@@ -18,8 +18,11 @@ class ComposeViewController: UIViewController, UITextViewDelegate { //, ComposeV
     
     //weak var delegate: ComposeViewControllerDelegate?
     
+    var currentUser = User.current
+    
     @IBOutlet weak var tweetButton: UIButton!
     @IBOutlet weak var composeText: UITextView!
+    @IBOutlet weak var avatarImage: UIImageView!
     @IBAction func didCancel(_ sender: Any) {
         self.dismiss(animated: true) {
         }
@@ -30,6 +33,10 @@ class ComposeViewController: UIViewController, UITextViewDelegate { //, ComposeV
         composeText.becomeFirstResponder()
         tweetButton.layer.cornerRadius = 0.15*tweetButton.frame.width
         tweetButton.layer.masksToBounds = true
+        avatarImage.layer.cornerRadius = 0.5*avatarImage.frame.width
+        avatarImage.layer.masksToBounds = true
+        let imageURL = currentUser?.avatar!
+        self.avatarImage.af_setImage(withURL: imageURL!)
         // Do any additional setup after loading the view.
     }
     

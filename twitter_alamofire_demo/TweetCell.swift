@@ -31,7 +31,7 @@ class TweetCell: UITableViewCell {
             tweetTextLabel.text = tweet.text
             username.text = tweet.user.name
             screenName.text = tweet.user.screenName
-            let imageURL = tweet.user.avatar as! URL
+            let imageURL = tweet.user.avatar!
             self.avatarImage.af_setImage(withURL: imageURL)
             
             self.timestampLabel.text = tweet.createdAtString
@@ -50,7 +50,7 @@ class TweetCell: UITableViewCell {
             }
             // Calling the favorite(completion:) method
             
-       }
+        }
     }
     
     @IBAction func didLike(_ sender: Any) {
@@ -59,7 +59,6 @@ class TweetCell: UITableViewCell {
             tweet.favorited = true
             tweet.favoriteCount? += 1
             APIManager.shared.favorite(tweet) { (tweet: Tweet?, error: Error?) in
-                print("HERE")
                 if let error = error {
                     print("Error favoriting tweet: \(error.localizedDescription)")
                 } else if let tweet = tweet {
@@ -69,6 +68,15 @@ class TweetCell: UITableViewCell {
             
         } else if likeButton.isSelected == true {
             likeButton.isSelected = false
+            tweet.favorited = false
+            tweet.favoriteCount? -= 1
+            APIManager.shared.favorite(tweet) { (tweet: Tweet?, error: Error?) in
+                if let error = error {
+                    print("Error unfavoriting tweet: \(error.localizedDescription)")
+                } else if let tweet = tweet {
+                    print("Successfully unfavorited the following Tweet: \n\(tweet.text)")
+                }
+            }
         }
     }
     
@@ -88,9 +96,17 @@ class TweetCell: UITableViewCell {
             }
         } else if retweetButton.isSelected == true {
             retweetButton.isSelected = false
+            tweet.retweeted = false
+            tweet.retweetCount -= 1
+            APIManager.shared.retweet(tweet) { (tweet: Tweet?, error: Error?) in
+                if let error = error {
+                    print("Error unretweeting tweet: \(error.localizedDescription)")
+                } else if let tweet = tweet {
+                    print("Successfully unretweeted the following Tweet: \n\(tweet.text)")
+                }
+            }
         }
     }
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()

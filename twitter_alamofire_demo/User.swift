@@ -18,6 +18,9 @@ class User {
     var tagline: String?
     var avatar: URL?
     var backdrop: URL?
+    var followers: Int?
+    var following: Int?
+    var tweetCount: Int?
     
    static var _current: User?
     
@@ -26,6 +29,9 @@ class User {
         name = dictionary["name"] as! String
         screenName = dictionary["screen_name"] as! String
         tagline = dictionary["description"] as! String
+        followers = dictionary["followers_count"] as! Int
+        following = dictionary["friends_count"] as! Int
+        tweetCount = dictionary["statuses_count"] as! Int
         let urlString = dictionary["profile_image_url_https"] as? String
         if let urlString = urlString {
             avatar = URL(string: urlString)
