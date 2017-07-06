@@ -25,6 +25,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = loginVC
         }
         
+        if User.current != nil {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            let tabViewController = storyboard.instantiateViewController(withIdentifier: "UITabBarController")
+            
+            // let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            
+            
+            //let homeViewController = storyboard.instantiateViewController(withIdentifier: "MainScreenViewController")
+            
+            window?.rootViewController = tabViewController
+        }
         return true
     }
     

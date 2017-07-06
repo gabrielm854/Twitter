@@ -1,68 +1,80 @@
 //
-//  TweetCell.swift
+//  DetailViewController.swift
 //  twitter_alamofire_demo
 //
-//  Created by Charles Hieger on 6/18/17.
+//  Created by Gabriel Muñiz on 7/6/17.
 //  Copyright © 2017 Charles Hieger. All rights reserved.
 //
 
 import UIKit
-import Alamofire
-import AlamofireImage
 
-class TweetCell: UITableViewCell {
+class DetailViewController: UIViewController {
     
-    @IBOutlet weak var tweetTextLabel: UILabel!
+    //Outlets setup
+    @IBOutlet weak var backdropImage: UIImageView!
+    @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var screenName: UILabel!
+    @IBOutlet weak var timestamp: UILabel!
+    @IBOutlet weak var tweetText: UILabel!
+    @IBOutlet weak var retweetCount: UILabel!
+    @IBOutlet weak var favoriteCount: UILabel!
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
-    @IBOutlet weak var retweetCount: UILabel!
-    @IBOutlet weak var likeCount: UILabel!
-    @IBOutlet weak var avatarImage: UIImageView!
-    @IBOutlet weak var timestampLabel: UILabel!
     
-    var indexPath: Int!
     
-    var tweet: Tweet! {
-        didSet {
-            avatarImage.layer.cornerRadius = 0.5*avatarImage.frame.width
-            avatarImage.layer.masksToBounds = true
-            tweetTextLabel.text = tweet.text
-            username.text = tweet.user.name
-            screenName.text = tweet.user.screenName
-            let imageURL = tweet.user.avatar!
-            self.avatarImage.af_setImage(withURL: imageURL)
-            
-            self.timestampLabel.text = tweet.createdAtString
-            
-            if tweet.favorited == true {
-                likeButton.isSelected = true
-            } else if tweet.favorited == false {
-                likeButton.isSelected = false
-            }
-            
-            if tweet.retweeted == true {
-                retweetButton.isSelected = true
-            } else if tweet.retweeted == false {
-                retweetButton.isSelected = false
-            }
-            
-            if tweet.retweetCount == 0 {
-                retweetCount.text = ""
-            } else if tweet.retweetCount != 0 {
-                retweetCount.text = String(tweet.retweetCount)
-            }
-            
-            if tweet.favoriteCount == 0 {
-                likeCount.text = ""
-            } else if tweet.favoriteCount != 0 {
-                likeCount.text = String(tweet.favoriteCount)
-            }
-            // Calling the favorite(completion:) method
-            
+    //Variable setup
+    var tweet: Tweet!
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        avatarImage.layer.cornerRadius = 0.5*avatarImage.frame.width
+        avatarImage.layer.masksToBounds = true
+        
+        username.text = tweet.user.name
+        screenName.text = tweet.user.screenName
+        timestamp.text = tweet.createdAtString
+        tweetText.text = tweet.text
+        
+        if tweet.retweetCount == 0 {
+            retweetCount.text = ""
+        } else if tweet.retweetCount != 0 {
+            retweetCount.text = String(describing: tweet.retweetCount)
         }
+        
+        if tweet.favoriteCount == 0 {
+            favoriteCount.text = ""
+        } else if tweet.favoriteCount != 0 {
+            favoriteCount.text = String(describing: tweet.favoriteCount)
+        }
+        
+        let avatarURL = tweet.user.avatar
+        avatarImage.af_setImage(withURL: avatarURL!)
+        
+        let backdropURL = tweet.user.backdrop
+        backdropImage.af_setImage(withURL: backdropURL!)
+        
+        
+        if tweet.favorited == true {
+            likeButton.isSelected = true
+            favoriteCount.textColor = UIColor.red
+        } else if tweet.favorited == false {
+            likeButton.isSelected = false
+            favoriteCount.textColor = UIColor.black
+        }
+        
+        if tweet.retweeted == true {
+            retweetButton.isSelected = true
+            retweetCount.textColor = UIColor.green
+        } else if tweet.retweeted == false {
+            retweetButton.isSelected = false
+            retweetCount.textColor = UIColor.black
+        }
+        
+        
     }
+
     
     @IBAction func didLike(_ sender: Any) {
         if tweet.favorited == false {
@@ -119,15 +131,20 @@ class TweetCell: UITableViewCell {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
     }
-    
+    */
+
 }

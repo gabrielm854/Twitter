@@ -36,9 +36,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         username.text = currentUser?.name
         screenName.text = currentUser?.screenName
         tagline.text = currentUser?.tagline
-        followersCount.text = String(describing: currentUser?.followers)
-        followingCount.text = String(describing: currentUser?.following)
-        tweetsCount.text = String(describing: currentUser?.tweetCount)
+        followersCount.text = String(describing: currentUser!.followers)
+        followingCount.text = String(describing: currentUser!.following)
+        tweetsCount.text = String(describing: currentUser!.tweetCount)
         let imageURL = currentUser?.avatar!
         self.avatarImage.af_setImage(withURL: imageURL!)
         let backdropImageURL = currentUser?.backdrop!

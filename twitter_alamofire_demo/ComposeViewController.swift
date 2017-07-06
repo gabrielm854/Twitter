@@ -23,7 +23,9 @@ class ComposeViewController: UIViewController, UITextViewDelegate { //, ComposeV
     @IBOutlet weak var tweetButton: UIButton!
     @IBOutlet weak var composeText: UITextView!
     @IBOutlet weak var avatarImage: UIImageView!
+    @IBOutlet weak var characterCounting: UILabel!
     @IBAction func didCancel(_ sender: Any) {
+        view.endEditing(true)
         self.dismiss(animated: true) {
         }
     }
@@ -37,6 +39,9 @@ class ComposeViewController: UIViewController, UITextViewDelegate { //, ComposeV
         avatarImage.layer.masksToBounds = true
         let imageURL = currentUser?.avatar!
         self.avatarImage.af_setImage(withURL: imageURL!)
+        composeText.delegate = self
+        
+        
         // Do any additional setup after loading the view.
     }
     
@@ -60,9 +65,19 @@ class ComposeViewController: UIViewController, UITextViewDelegate { //, ComposeV
                 }
             }
             self.dismiss(animated: true, completion: nil)
+            view.endEditing(true)
         }
     }
     
+    func textViewDidChange(_ textView: UITextView) {
+        let countingCharacters = 140-composeText.text.characters.count
+        characterCounting.text = String(describing: countingCharacters)
+        if countingCharacters >= 20 {
+            characterCounting.textColor = UIColor.gray
+        } else if countingCharacters < 20 {
+            characterCounting.textColor = UIColor.red
+        }
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
