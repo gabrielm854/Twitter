@@ -8,6 +8,8 @@
 
 import UIKit
 import Alamofire
+import OAuthSwift
+import OAuthSwiftAlamofire
 
 
 //protocol ComposeViewControllerDelegate {
@@ -25,11 +27,28 @@ class ComposeViewController: UIViewController, UITextViewDelegate { //, ComposeV
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var characterCounting: UILabel!
     @IBAction func didCancel(_ sender: Any) {
-        view.endEditing(true)
-        self.dismiss(animated: true) {
-        }
+        self.view.endEditing(true)
+        self.dismiss(animated: true)
+        
+        
+        //Trying to get an alert message asking if it should delete the tweet or not
+        
+        //        if composeText.text.characters.count != 0 {
+        //            self.view.endEditing(true)
+        //            let alertController = UIAlertController(title: nil, message: "You are about to leave this window and delete your message.", preferredStyle: .actionSheet)
+        //            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {(action) in
+        //            }
+        //            alertController.addAction(cancelAction)
+        //
+        //            let deleteTweet = UIAlertAction(title: "I know, delete Tweet", style: .default) {(action) in
+        //                self.dismiss(animated: true) {
+        //                }
+        //            }
+        //        } else {
+        //            self.view.endEditing(true)
+        //            self.dismiss(animated: true)
+        //        }
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         composeText.becomeFirstResponder()

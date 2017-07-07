@@ -8,6 +8,8 @@
 
 import UIKit
 import Prephirences
+import OAuthSwift
+import OAuthSwiftAlamofire
 
 class LoginViewController: UIViewController {
     

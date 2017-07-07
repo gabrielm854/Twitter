@@ -2,7 +2,7 @@
 
 **MooMe** is a basic twitter app to read and compose tweets the [Twitter API](https://apps.twitter.com/).
 
-Time spent: **X** hours spent in total
+Time spent: **20** hours spent in total
 
 ## User Stories
 
@@ -50,23 +50,30 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/cr9CTQw.gif' title='Launch & Logout' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/p5yXbcv.gif' title='Timeline, Pull to refresh & Details' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/iP5DU6H.gif' title='Favorites, retweets and compose' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/v55r6rs.gif' title='Profile' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/CSLY9GK.gif' title='iPhone 7 landscape view' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/Z0UU6bL.gif' title='iPhone SE portrait view' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/bL41Uob.gif' title='iPhone SE landscape view' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+My major problem during the development of this assigment was in the persisting user milstone. This proved to be easy to solve by simply drawing a parallel between the Parse Server user used in the Instagram assingment and the current user in this app.
 
 ## Credits
 
 List an 3rd party libraries, icons, graphics, or other assets you used in your app.
 
 - [AFNetworking](https://github.com/AFNetworking/AFNetworking) - networking task library
+- [TwitterAPI] (https://apps.twitter.com) - Twitter API
 
 ## License
 
-Copyright [yyyy] [name of copyright owner]
+Copyright [2017] [Gabriel Muñiz Negrón]
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

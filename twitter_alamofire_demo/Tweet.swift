@@ -9,6 +9,8 @@
 import Foundation
 import Alamofire
 import AlamofireImage
+import OAuthSwift
+import OAuthSwiftAlamofire
 
 class Tweet {
     

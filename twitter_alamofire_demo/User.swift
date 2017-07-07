@@ -9,6 +9,8 @@
 import Foundation
 import Alamofire
 import AlamofireImage
+import OAuthSwiftAlamofire
+import OAuthSwift
 
 class User {
     

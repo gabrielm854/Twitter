@@ -9,6 +9,8 @@
 import UIKit
 import Alamofire
 import AlamofireImage
+import OAuthSwift
+import OAuthSwiftAlamofire
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     

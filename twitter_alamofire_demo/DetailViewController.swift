@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import OAuthSwift
+import OAuthSwiftAlamofire
 
 class DetailViewController: UIViewController {
     
